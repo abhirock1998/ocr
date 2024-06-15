@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-const buildFolder = path.join(__dirname, "..", "..", "client", "dist");
+const buildFolder = path.join("client", "dist");
 app.use(express.static(buildFolder));
 
 // Registering Index router
