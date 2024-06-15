@@ -6,21 +6,12 @@ import { useApiHook } from "../../hooks/useAuth";
 import { useAppStore } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-type FormValue = {
-  password: string;
-  email: string;
-};
-
-type Props = {
-  onSignUp: () => void;
-};
-
-const Login = ({ onSignUp }: Props) => {
+const Login = ({ onSignUp }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValue>();
+  } = useForm();
   const apiCall = useApiHook();
   const toast = useNotificationHook();
   const { login, showLoader, hideLoader } = useAppStore();

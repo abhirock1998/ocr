@@ -5,24 +5,13 @@ import { useApiHook } from "../../hooks/useAuth";
 import { useNotificationHook } from "../../hooks/useNotificationHook";
 import { useAppStore } from "../../context/AuthProvider";
 
-type FormValue = {
-  name: string;
-  password: string;
-  email: string;
-  confirmPassword: string;
-};
-
-type Props = {
-  onLogin: () => void;
-};
-
-const SignUp = ({ onLogin }: Props) => {
+const SignUp = ({ onLogin }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<FormValue>();
+  } = useForm();
   const apiCall = useApiHook();
   const toast = useNotificationHook();
   const { showLoader, hideLoader } = useAppStore();

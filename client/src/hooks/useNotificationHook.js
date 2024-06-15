@@ -1,6 +1,6 @@
-import { toast, ToastOptions } from "react-toastify";
+import { toast } from "react-toastify";
 
-const toastOptions: ToastOptions = {
+const toastOptions = {
   position: "top-right",
   autoClose: 5000,
   hideProgressBar: false,
@@ -12,16 +12,16 @@ const toastOptions: ToastOptions = {
 
 export const useNotificationHook = () => {
   return () => ({
-    error: (message: string) => {
+    error: (message) => {
       toast.error(message, toastOptions);
     },
-    success: (message: string) => {
+    success: (message) => {
       toast.success(message, toastOptions);
     },
-    warning: (message: string) => {
+    warning: (message) => {
       toast.warning(message, toastOptions);
     },
-    info: (message: string) => {
+    info: (message) => {
       toast.info(message, toastOptions);
     },
   });

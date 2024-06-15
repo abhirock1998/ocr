@@ -10,18 +10,7 @@ export const APP_KEY = {
   refreshToken: "ocr_refresh_token",
 };
 
-type AuthContextType = {
-  isAuthenticated: boolean;
-  login: (user: any, accessToken: string, refreshToken: string) => void;
-  logout: () => void;
-  user: any;
-  toggleAuthState: () => void;
-  isLoading: boolean;
-  showLoader: () => void;
-  hideLoader: () => void;
-};
-
-const authContext = createContext<AuthContextType>({
+const authContext = createContext({
   isAuthenticated: false,
   logout: () => {},
   user: null,
@@ -32,14 +21,12 @@ const authContext = createContext<AuthContextType>({
   hideLoader: () => {},
 });
 
-type ProviderProps = PropsWithChildren<{}>;
-
-const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
-  const login = (user: any, aT: string, rT: string) => {
+  const login = (user, aT, rT) => {
     setIsLogin(true);
     setUser(user);
     localStorage.setItem(APP_KEY.accessToken, aT);

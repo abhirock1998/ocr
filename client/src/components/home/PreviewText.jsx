@@ -1,33 +1,4 @@
-import React from "react";
-
-type Word = {
-  text: string;
-  isBold: boolean;
-  confidence: number;
-  highConfidence: boolean;
-  moderateConfidence: boolean;
-  lowConfidence: boolean;
-};
-
-type Line = {
-  text: string;
-  confidence: number;
-  highConfidence: boolean;
-  moderateConfidence: boolean;
-  lowConfidence: boolean;
-  words: Word[];
-};
-
-type ExtractedContent = {
-  text: string;
-  lines: Line[];
-};
-
-type PreviewProps = {
-  responseData: ExtractedContent;
-};
-
-const PreviewText: React.FC<PreviewProps> = ({ responseData }) => {
+const PreviewText = ({ responseData }) => {
   const { text = "", lines } = responseData;
   return (
     <div className="my-10">

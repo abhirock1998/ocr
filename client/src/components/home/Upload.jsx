@@ -1,19 +1,14 @@
 import Dropzone from "react-dropzone";
 import { useNotificationHook } from "../../hooks/useNotificationHook";
 
-type Props = {
-  onUpload: (file: File) => void;
-  fileData: File | null;
-};
-
-const Upload = ({ onUpload, fileData }: Props) => {
+const Upload = ({ onUpload, fileData }) => {
   const toast = useNotificationHook();
   return (
     <>
       <h1 className="text-2xl font-semibold mb-5">Upload Image</h1>
       <Dropzone
         disabled={fileData ? true : false}
-        onDrop={(acceptedFiles: File[]) => {
+        onDrop={(acceptedFiles) => {
           if (acceptedFiles.length > 0) {
             const file = acceptedFiles[0];
             onUpload(file);

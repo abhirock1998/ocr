@@ -1,10 +1,6 @@
 import React from "react";
 
-type PreviewProps = {
-  file: File | null;
-};
-
-const Preview: React.FC<PreviewProps> = ({ file }) => {
+const Preview = ({ file }) => {
   if (!file)
     return (
       <div className="w-full h-full bg-gray-200 flex items-center justify-center">

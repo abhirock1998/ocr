@@ -8,12 +8,12 @@ import { useApiHook } from "../../hooks/useAuth";
 import { useAppStore } from "../../context/AuthProvider";
 
 const Home = () => {
-  const [file, setFile] = React.useState<File | null>(null);
-  const [responseData, setResponseData] = React.useState<any>(null);
+  const [file, setFile] = React.useState(null);
+  const [responseData, setResponseData] = React.useState(null);
   const apiCall = useApiHook();
   const { showLoader, hideLoader } = useAppStore();
 
-  const handleUpload = (file: File) => setFile(file);
+  const handleUpload = (file) => setFile(file);
 
   const handleReset = () => {
     setFile(null);
@@ -23,7 +23,7 @@ const Home = () => {
   const handleExtractText = async () => {
     const formData = new FormData();
     showLoader();
-    formData.append("file", file as any);
+    formData.append("file", file);
     const result = await apiCall(formData, "ocr");
     hideLoader();
     if (result) {

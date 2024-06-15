@@ -22,11 +22,9 @@ api.interceptors.request.use(
   }
 );
 
-type IntentType = "signup" | "login" | "ocr";
-
-const getConfig = (intent: IntentType) => {
+const getConfig = (intent) => {
   let endpoint = "";
-  let headers: any = api.defaults.headers;
+  let headers = api.defaults.headers;
 
   switch (intent) {
     case "signup":
@@ -50,7 +48,7 @@ export const useApiHook = () => {
   const { showLoader, hideLoader } = useAppStore();
   const refreshAccess = useRefreshAccessTokenHook();
 
-  const makeRequest = async (data: any, intent: IntentType): Promise<any> => {
+  const makeRequest = async (data, intent) => {
     const { endpoint, headers } = getConfig(intent);
 
     try {
@@ -66,7 +64,7 @@ export const useApiHook = () => {
       } else {
         toast().error(result?.message);
       }
-    } catch (error: any) {
+    } catch (error) {
       const errorCode = error.response?.status;
       if (errorCode === 401) {
         showLoader();
@@ -81,7 +79,7 @@ export const useApiHook = () => {
       const message = error?.response?.data?.message || error?.message;
       const errorData = rootError?.error;
       if (Array.isArray(errorData)) {
-        errorData.map((err: any) => {
+        errorData.map((err) => {
           const path = err?.path?.toString();
           if (path) {
             toast().error(`Error ${path} ${err.message}`);
@@ -120,7 +118,7 @@ const useRefreshAccessTokenHook = () => {
         toast().error(result?.message);
         return false;
       }
-    } catch (error: any) {
+    } catch (error) {
       const errorCode = error?.response?.status;
       //  If refresh token is expired, redirect to login page
       if (errorCode === 403) {

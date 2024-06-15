@@ -1,14 +1,6 @@
 import React from "react";
 
-type InputFieldProps = {
-  label: string;
-  placeholder: string;
-  type?: "text" | "email" | "password";
-  error?: string;
-  gutterBottom?: number;
-};
-
-const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
+const InputField = React.forwardRef(
   (
     { label, placeholder, type = "text", error, gutterBottom = 20, ...props },
     ref
