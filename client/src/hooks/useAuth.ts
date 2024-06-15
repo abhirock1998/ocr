@@ -3,7 +3,7 @@ import { useNotificationHook } from "./useNotificationHook";
 import { APP_KEY, useAppStore } from "../context/AuthProvider";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: `${window.location.protocol}//${window.location.hostname}:3000/api/v1`,
   headers: {
     "Content-Type": "application/json",
   },
