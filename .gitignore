@@ -33,3 +33,4 @@ server/node_modules
 # Ignore npm package logs
 .pnpm-debug.log*
 .yarn/*
+.vercel
