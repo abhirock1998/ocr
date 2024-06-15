@@ -1,0 +1,50 @@
+{
+  // "ts-node": {
+  //   // these options are overrides used only by ts-node
+  //   // same as our --compilerOptions flag and our TS_NODE_COMPILER_OPTIONS environment variable
+  //   "compilerOptions": {
+  //     "module": "commonjs"
+  //   },
+  //   "require": [
+  //     "tsconfig-paths/register"
+  //   ]
+  // },
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "baseUrl": "./",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": {
+      "@controllers/*": ["src/controllers/*"],
+      "@config/*": ["src/config/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@models/*": ["src/models/*"],
+      "@routes/*": ["src/routes/*"],
+      "@schemas/*": ["src/schemas/*"],
+      "@services/*": ["src/services/*"],
+      "@schedules/*": ["src/schedules/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+    // "rootDir": "./src",
+    "forceConsistentCasingInFileNames": true,
+    "resolvePackageJsonImports": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true
+  },
+  "include": ["next-env.d.ts", "twin.d.ts", "**/*.ts"],
+  "exclude": ["node_modules"]
+}

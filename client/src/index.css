@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Overridfe gthe Auto complete in[ut field css */
+
+/* input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset; 
+  -webkit-text-fill-color: transparent;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px white inset; 
+  -webkit-text-fill-color: transparent;
+} */
