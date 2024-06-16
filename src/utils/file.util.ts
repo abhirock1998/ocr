@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 
-export const uploadFolder = path.resolve(__dirname, "..", "uploads");
+export const uploadFolder = path.join("..", "uploads");
 
 export const getImagePath = (fileName: string) => `${uploadFolder}/${fileName}`;
 
