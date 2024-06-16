@@ -4,6 +4,7 @@ import multer from "multer";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log(`File is:`, file);
+    console.log("Upload folder:", uploadFolder);
     cb(null, uploadFolder);
   },
   filename: (req, file, cb) => {
