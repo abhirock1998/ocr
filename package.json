@@ -6,7 +6,7 @@
     "dev": "NODE_ENV=developement ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/server.ts",
     "build": "node src/preload.js && rimraf dist && tsc",
     "start": "NODE_ENV=production node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/src/server.js",
-    "deploy": "node src/preload.js && npm run build && npm run start"
+    "deploy": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",

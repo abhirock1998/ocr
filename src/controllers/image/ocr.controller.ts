@@ -17,6 +17,7 @@ export const extractContent = asyncHandler(
     }
 
     const filepath = getImagePath(fileName);
+    console.log("File to be processed:", filepath);
     const extension = fileName.split(".").pop();
     const worker = await createWorker();
 
