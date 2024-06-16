@@ -4,6 +4,7 @@ import tailwindcss from "tailwindcss";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: `https://ocr-s36n.onrender.com/`,
   css: {
     postcss: {
       plugins: [tailwindcss()],
