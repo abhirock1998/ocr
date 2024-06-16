@@ -13,7 +13,9 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-const buildFolder = path.join("client", "dist");
+// const buildFolder = path.join("client", "dist");
+const buildFolder = path.join(__dirname, "..", "..", "client", "dist");
+// console.log(path.join(__dirname, "..", "..", "client", "dist"));
 console.log("BUILD FOLDER", buildFolder);
 app.use(express.static(buildFolder));
 
