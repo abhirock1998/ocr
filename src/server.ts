@@ -70,9 +70,10 @@ app.get("*", (req, res) => {
   ) {
     const indexFile = path.resolve(buildFolder, "index.html");
     console.log(`indexFile`, indexFile);
-    res.sendFile(indexFile);
+    res.status(200).sendFile(indexFile);
   } else {
-    res.status(404).send("Not Found");
+    const assetFile = path.resolve(buildFolder, req.url);
+    res.status(200).sendFile(assetFile);
   }
 });
 
