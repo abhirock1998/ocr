@@ -1,4 +1,3 @@
-import path from "path";
 import cors from "cors";
 import express from "express";
 import router from "@routes/index";
@@ -33,32 +32,8 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-// Logging middleware
-app.use((req, _, next) => {
-  console.log(
-    `${colors.yellow}${emojis.globe} Request: ${req.method} ${req.url}${colors.reset}`
-  );
-  next();
-});
-
-const buildFolder = path.join(__dirname, "..", "..", "client", "build");
-
-console.log(
-  `${colors.blue}${emojis.folder} Build folder: ${buildFolder}${colors.reset}`
-);
-
 // Registering Index router
 app.use("/api/v1/", router);
-
-// Serve app production bundle
-app.use(express.static(buildFolder));
-
-app.get("*", function (req, res) {
-  console.log(
-    `${colors.green}${emojis.check} Serving index.html${colors.reset}`
-  );
-  res.sendFile(path.join(buildFolder, "index.html"));
-});
 
 // Error handling middleware
 app.use(errorMiddleware);
