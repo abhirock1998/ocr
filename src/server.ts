@@ -43,10 +43,13 @@ console.log("buildFolder", buildFolder);
 app.use("/api/v1/", router);
 
 // Serve static files from the /assets directory
+// Serve app production bundle
+app.use(express.static(buildFolder));
 
 app.get("*", function (req, res) {
   console.log(`Serving index.html`);
-  res.render(path.resolve(buildFolder, "index.html"));
+  // res.render(path.resolve(buildFolder, "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // Error handling middleware
