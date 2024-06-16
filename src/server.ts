@@ -49,7 +49,7 @@ app.use(express.static(buildFolder));
 app.get("*", function (req, res) {
   console.log(`Serving index.html`);
   // res.render(path.resolve(buildFolder, "index.html"));
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(buildFolder, "index.html"));
 });
 
 // Error handling middleware
