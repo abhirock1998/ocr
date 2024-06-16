@@ -24,31 +24,15 @@ const buildFolder = path.join(__dirname, "..", "..", "client", "dist");
 
 console.log("buildFolder", buildFolder);
 
+// Registering Index router
+app.use("/api/v1/", router);
+
 app.get("/", function (req, res) {
   console.log(`Serving index.html`);
   res.sendFile(path.resolve(buildFolder, "index.html"));
 });
 
-app.use("/", express.static(buildFolder));
-
-// Registering Index router
-app.use("/api/v1/", router);
-
-// app.get("*", (req, res) => {
-//   const reqURL = req.url;
-//   if (reqURL.startsWith("/assets/")) {
-//     const assetFile = path.resolve(buildFolder, reqURL.replace(/^\//, ""));
-//     res.sendFile(assetFile, (err) => {
-//       if (err) {
-//         console.error(`Error sending file ${assetFile}:`, err);
-//         res.status(404).end();
-//       }
-//     });
-//   } else {
-//     // For other non-API routes, serve index.html
-//     res.sendFile(path.resolve(buildFolder, "index.html"));
-//   }
-// });
+app.use("*", express.static(buildFolder));
 
 // Error handling middleware
 app.use(errorMiddleware);
