@@ -20,15 +20,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Use helmet with custom configuration to disable nosniff
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-    frameguard: false,
-    noSniff: false, // Disable the setting of `X-Content-Type-Options: nosniff`
-  })
-);
-
 const buildFolder = path.join("client", "dist");
 
 console.log("Build Folder", buildFolder);
@@ -40,7 +31,9 @@ app.use("/api/v1/", router);
 
 // Fallback route to serve index.html for any non-API routes
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(buildFolder, "index.html"));
+  const indexFile = path.resolve(buildFolder, "index.html");
+  console.log(`indexFile`, indexFile);
+  res.sendFile(indexFile);
 });
 
 // Error handling middleware
