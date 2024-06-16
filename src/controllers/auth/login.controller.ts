@@ -7,6 +7,7 @@ import { Request, Response } from "express";
 const login = asyncHandler(async (req: Request, res: Response) => {
   const payload = req.body;
   const { email, password } = payload;
+  console.log("payload in login", payload);
   const hasExist = await User.findOne({ email }).select("+password");
   if (!hasExist) {
     return _response(res, "User with this email not found", false, 404, {});

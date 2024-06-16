@@ -8,21 +8,44 @@ import { errorMiddleware } from "@middlewares/error.middleware";
 
 configDotenv();
 
+// ANSI escape codes for colors
+const colors = {
+  reset: "\x1b[0m",
+  red: "\x1b[31m",
+  green: "\x1b[32m",
+  blue: "\x1b[34m",
+  yellow: "\x1b[33m",
+};
+
+// Emoji text
+const emojis = {
+  folder: "📁",
+  check: "✅",
+  wrench: "🛠️",
+  tada: "🎉",
+  cross: "❌",
+  globe: "🌐",
+  clock: "🕒",
+};
+
 const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
 // Logging middleware
-app.use((req, res, next) => {
-  console.log(`Request: ${req.method} ${req.url}`);
-  console.log(`Time: ${new Date().toLocaleTimeString()}`);
+app.use((req, _, next) => {
+  console.log(
+    `${colors.yellow}${emojis.globe} Request: ${req.method} ${req.url}${colors.reset}`
+  );
   next();
 });
 
 const buildFolder = path.join(__dirname, "..", "..", "client", "build");
 
-console.log("buildFolder", buildFolder);
+console.log(
+  `${colors.blue}${emojis.folder} Build folder: ${buildFolder}${colors.reset}`
+);
 
 // Registering Index router
 app.use("/api/v1/", router);
@@ -30,8 +53,10 @@ app.use("/api/v1/", router);
 // Serve app production bundle
 app.use(express.static(buildFolder));
 
-app.get("/", function (req, res) {
-  console.log(`Serving index.html`);
+app.get("*", function (req, res) {
+  console.log(
+    `${colors.green}${emojis.check} Serving index.html${colors.reset}`
+  );
   res.sendFile(path.join(buildFolder, "index.html"));
 });
 
@@ -43,5 +68,7 @@ const PORT = process.env["PORT"] || 3000;
 // Build client app and start server
 app.listen(PORT, async () => {
   await connectToDB();
-  console.log(`Server is running on port ${PORT}`);
+  console.log(
+    `${colors.green}${emojis.tada} Server is running on port ${PORT}${colors.reset}`
+  );
 });
