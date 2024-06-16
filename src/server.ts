@@ -1,9 +1,6 @@
 import path from "path";
 import cors from "cors";
 import express from "express";
-// @ts-ignore
-import mime from "mime";
-import helmet from "helmet";
 import router from "@routes/index";
 import { configDotenv } from "dotenv";
 import { connectToDB } from "@services/db.service";
@@ -13,9 +10,23 @@ configDotenv();
 
 const app = express();
 
+const mimeTypes: Record<string, string> = {
+  ".css": "text/css",
+  ".js": "application/javascript",
+  ".html": "text/html",
+  ".png": "image/png",
+  ".jpeg": "image/jpeg",
+  ".jpg": "image/jpeg",
+  ".svg": "image/svg+xml",
+  ".ico": "image/x-icon",
+  ".map": "application/json",
+  ".json": "application/json",
+  ".wasm": "application/wasm",
+  ".txt": "text/plain",
+};
+
 app.use(express.json());
 app.use(cors({ origin: "*" }));
-app.use(helmet());
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -32,9 +43,10 @@ console.log("Build Folder", buildFolder);
 app.use(
   express.static(buildFolder, {
     setHeaders: (res, filePath) => {
-      const mimeType = mime.getType(filePath);
+      const ext = path.extname(filePath);
+      const mimeType = mimeTypes[ext] || "application/octet-stream";
       console.log("mimeType", mimeType);
-      res.setHeader("Content-Type", mimeType || "application/octet-stream");
+      res.setHeader("Content-Type", mimeType);
     },
   })
 );
@@ -56,6 +68,5 @@ const PORT = process.env["PORT"] || 3000;
 
 app.listen(PORT, async () => {
   await connectToDB();
-  console.log(process.env);
   console.log(`Server is running on port ${PORT}`);
 });
