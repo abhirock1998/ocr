@@ -3,7 +3,7 @@ import HomePage from "./pages/home/Home";
 import AuthPage from "./pages/auth/Auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppStore } from "./context/AuthProvider";
+import { useAppStore, APP_KEY } from "./context/AuthProvider";
 import ScreenLoader from "./components/shared/ScreenLoader";
 
 const ProtectedRoute = () => {
@@ -11,6 +11,8 @@ const ProtectedRoute = () => {
 
   if (!isAuthenticated || !user) {
     console.log("User not authenticated");
+    localStorage.removeItem(APP_KEY.accessToken);
+    localStorage.removeItem(APP_KEY.refreshToken);
     return <Navigate to="/" replace />;
   }
 
