@@ -16,6 +16,12 @@ app.use(cors({ origin: "*" }));
 const buildFolder = path.join("client", "dist");
 app.use(express.static(buildFolder));
 
+app.use((req, res, next) => {
+  console.log(`Request: ${req.method} ${req.url}`);
+  console.log(`Time: ${new Date()}`);
+  next();
+});
+
 // Registering Index router
 app.use("/api/v1/", router);
 
