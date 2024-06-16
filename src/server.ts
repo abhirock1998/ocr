@@ -72,7 +72,8 @@ app.get("*", (req, res) => {
     console.log(`indexFile`, indexFile);
     res.status(200).sendFile(indexFile);
   } else {
-    const assetFile = path.resolve(buildFolder, req.url);
+    const assetFile = path.resolve(buildFolder, req.url.replace("/", ""));
+    console.log("Asset File", assetFile);
     res.status(200).sendFile(assetFile);
   }
 });
