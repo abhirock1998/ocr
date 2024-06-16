@@ -39,8 +39,9 @@ app.get("*", (req, res) => {
 // Error handling middleware
 app.use(errorMiddleware);
 
-const PORT = process.env["PORT"] || 3000;
+const PORT = 3000 || process.env["PORT"];
 app.listen(PORT, async () => {
   await connectToDB();
+  console.log(process.env);
   console.log(`Server is running on port ${PORT}`);
 });
