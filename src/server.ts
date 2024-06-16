@@ -1,6 +1,8 @@
 import path from "path";
 import cors from "cors";
 import express from "express";
+// @ts-ignore
+import mime from "mime";
 import helmet from "helmet";
 import router from "@routes/index";
 import { configDotenv } from "dotenv";
@@ -13,7 +15,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: "*" }));
+app.use(helmet());
 
+// Logging middleware
 app.use((req, res, next) => {
   console.log(`Request: ${req.method} ${req.url}`);
   console.log(`Time: ${new Date().toLocaleTimeString()}`);
@@ -24,7 +28,16 @@ const buildFolder = path.join("client", "dist");
 
 console.log("Build Folder", buildFolder);
 
-app.use(express.static(buildFolder));
+// Serve static files with correct MIME types
+app.use(
+  express.static(buildFolder, {
+    setHeaders: (res, filePath) => {
+      const mimeType = mime.getType(filePath);
+      console.log("mimeType", mimeType);
+      res.setHeader("Content-Type", mimeType || "application/octet-stream");
+    },
+  })
+);
 
 // Registering Index router
 app.use("/api/v1/", router);
@@ -40,6 +53,7 @@ app.get("*", (req, res) => {
 app.use(errorMiddleware);
 
 const PORT = process.env["PORT"] || 3000;
+
 app.listen(PORT, async () => {
   await connectToDB();
   console.log(process.env);
