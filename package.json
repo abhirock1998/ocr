@@ -4,9 +4,9 @@
   "description": "",
   "scripts": {
     "dev": "NODE_ENV=developement ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/server.ts",
-    "build": "rimraf dist && tsc",
+    "build": "node src/preload.js && rimraf dist && tsc",
     "start": "NODE_ENV=production node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/src/server.js",
-    "deploy": "npm run build && npm run start"
+    "deploy": "node src/preload.js && npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
