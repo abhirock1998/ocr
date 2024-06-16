@@ -6,7 +6,6 @@ import { Request, Response } from "express";
 
 const login = asyncHandler(async (req: Request, res: Response) => {
   const payload = req.body;
-  console.log("Payload", payload);
   const { email, password } = payload;
   const hasExist = await User.findOne({ email }).select("+password");
   if (!hasExist) {
@@ -32,7 +31,6 @@ const login = asyncHandler(async (req: Request, res: Response) => {
   await hasExist.save();
   // saving user in session for future use
   req.session = hasExist;
-  console.log("After login", req.session);
   _response(res, "User logged in successfully", true, 200, responsePayload);
 });
 

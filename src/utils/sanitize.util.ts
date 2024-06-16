@@ -6,5 +6,5 @@ export const sanitizeUser = (user: any) => {
     delete userObj[field];
   });
 
-  return user;
+  return userObj;
 };

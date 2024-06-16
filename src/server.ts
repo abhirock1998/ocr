@@ -29,7 +29,19 @@ app.use(express.static(buildFolder));
 app.use("/api/v1/", router);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(buildFolder, "index.html"));
+  const reqURL = req.url;
+  if (reqURL.startsWith("/assets/")) {
+    const assetFile = path.resolve(buildFolder, reqURL.replace(/^\//, ""));
+    res.sendFile(assetFile, (err) => {
+      if (err) {
+        console.error(`Error sending file ${assetFile}:`, err);
+        res.status(404).end();
+      }
+    });
+  } else {
+    // For other non-API routes, serve index.html
+    res.sendFile(path.resolve(buildFolder, "index.html"));
+  }
 });
 
 // Error handling middleware
