@@ -46,9 +46,7 @@ app.use("/api/v1/", router);
 
 app.get("*", function (req, res) {
   console.log(`Serving index.html`);
-  const filePath = path.resolve(buildFolder, "assets", "index-TCjvaZu9.js");
-  console.log("filePath", filePath);
-  res.sendFile(path.resolve(buildFolder, "assets", "index-TCjvaZu9.js"));
+  res.render(path.resolve(buildFolder, "index.html"));
 });
 
 // Error handling middleware
