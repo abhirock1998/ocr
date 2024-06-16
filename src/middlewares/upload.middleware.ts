@@ -8,10 +8,16 @@ const storage = multer.diskStorage({
     cb(null, uploadFolder);
   },
   filename: (req, file, cb) => {
-    const fileName = `${Date.now()}`;
-    console.log("Filename:", fileName);
-    req.fileName = fileName;
-    cb(null, fileName);
+    try {
+      const fileName = `${Date.now()}-${file.originalname}`;
+      console.log("Filename:", fileName);
+      req.fileName = fileName;
+      console.log("req.fileName:", req.fileName);
+      cb(null, fileName);
+    } catch (error: any) {
+      console.log(`Error in filename:`, error.message);
+      cb(error, "");
+    }
   },
 });
 
