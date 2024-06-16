@@ -4,6 +4,13 @@ import { _response } from "@utils/response.util";
 import { sanitizeUser } from "@utils/sanitize.util";
 import { Request, Response } from "express";
 
+/**
+ * Handles the login functionality.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A Promise that resolves to the login response.
+ */
 const login = asyncHandler(async (req: Request, res: Response) => {
   const payload = req.body;
   const { email, password } = payload;

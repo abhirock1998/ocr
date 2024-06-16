@@ -6,6 +6,12 @@ import { Request, Response } from "express";
 import fs from "fs";
 import { createWorker } from "tesseract.js";
 
+/**
+ * Extracts content from an image file and saves it to the database.
+ * @param req - The request object containing the image file name and user session.
+ * @param res - The response object to send the extracted content.
+ * @returns A response indicating the success or failure of the extraction process.
+ */
 export const extractContent = asyncHandler(
   async (req: Request, res: Response) => {
     const { fileName, session: user } = req;

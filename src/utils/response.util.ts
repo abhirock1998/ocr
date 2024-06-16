@@ -1,4 +1,14 @@
 import { Response } from "express";
+
+/**
+ * Sends a response to the client.
+ *
+ * @param res - The response object.
+ * @param message - The message to send.
+ * @param success - The status of the response.
+ * @param statusCode - The status code of the response.
+ * @param data - The data to send.
+ */
 export const _response = (
   res: Response,
   message: string,

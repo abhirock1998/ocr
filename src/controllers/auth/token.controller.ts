@@ -3,6 +3,12 @@ import User from "@models/user.model";
 import { verifyToken } from "@services/jwt.service";
 import { _response } from "@utils/response.util";
 
+/**
+ * Refreshes the access token using the provided refresh token.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A response indicating whether the access token was successfully refreshed.
+ */
 export const refreshAccessToken = asyncHandler(async (req, res) => {
   const { refreshToken } = req.body;
 

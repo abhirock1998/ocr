@@ -33,19 +33,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-// Logging middleware
-app.use((req, _, next) => {
-  console.log(
-    `${colors.yellow}${emojis.globe} Request: ${req.method} ${req.url}${colors.reset}`
-  );
-  next();
-});
-
 const buildFolder = path.join(__dirname, "..", "..", "client", "build");
-
-console.log(
-  `${colors.blue}${emojis.folder} Build folder: ${buildFolder}${colors.reset}`
-);
 
 // Registering Index router
 app.use("/api/v1/", router);

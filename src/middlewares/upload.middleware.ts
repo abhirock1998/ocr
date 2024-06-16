@@ -1,6 +1,10 @@
 import { uploadFolder } from "@utils/file.util";
 import multer from "multer";
 
+/**
+ * Multer disk storage configuration.
+ * Defines the destination and filename for uploaded files.
+ */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log(`File is:`, file);
@@ -13,4 +17,8 @@ const storage = multer.diskStorage({
   },
 });
 
+/**
+ * Multer upload middleware.
+ * Uploads files to the server.
+ */
 export const upload = multer({ storage });

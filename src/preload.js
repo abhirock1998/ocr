@@ -24,6 +24,10 @@ console.log(
   `${colors.blue}${emojis.folder} Client folder: ${clientFolder}${colors.reset}`
 );
 
+/**
+ * Install client dependencies using npm install command
+ * and then create a production build using npm run build command
+ */
 exec("npm install", { cwd: clientFolder }, (err, stdout, stderr) => {
   if (err) {
     console.error(
@@ -47,6 +51,9 @@ exec("npm install", { cwd: clientFolder }, (err, stdout, stderr) => {
   createClientBuild();
 });
 
+/**
+ * Create a production build for the client
+ */
 function createClientBuild() {
   exec("npm run build", { cwd: clientFolder }, (err, stdout, stderr) => {
     if (err) {

@@ -2,6 +2,14 @@ import { verifyToken } from "@services/jwt.service";
 import { asyncHandler } from "./async.middleware";
 import { _response } from "@utils/response.util";
 
+/**
+ * Protects the router by verifying the token.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next function.
+ * @returns A Promise that resolves to void.
+ */
 export const protectRouter = asyncHandler(async (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {

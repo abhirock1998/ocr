@@ -12,8 +12,15 @@ const PreviewText = ({ responseData }) => {
             <strong>Confidence:</strong> High (80% and above), Moderate (50% to
             80%), Low (below 50%)
           </p>
+          <p>Bold text will be displayed in the following format:</p>
+          <p className="mb-6">
+            <strong>Bold Text:</strong> [bold text]
+          </p>
+          <p className="text-sm">
+            Note: Bold text will only appear if OCR detects bold characters or
+            words.
+          </p>
           {lines.map((line, index) => {
-            console.log(line.words);
             const boldWords = line.words.filter((word) => word.isBold);
             const hasBoldText = boldWords.length > 0;
             const boldText = boldWords.map((word) => word.text).join(" ");

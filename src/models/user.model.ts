@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema<UserDocument>(
 
 userSchema.index({ email: 1 });
 
+// Hash the password before saving the user model
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
@@ -43,16 +44,19 @@ userSchema.pre("save", async function (next) {
   }
 });
 
+// Compare the passed password with the value in the database. A model method.
 userSchema.methods["comparePassword"] = function (pHash: string, text: string) {
   return bcrypt.compare(text, pHash);
 };
 
+// Generate an access token for the user. A model method.
 userSchema.methods["genAccessToken"] = function () {
   const user = this as UserDocument;
   const expiresIn = "1h";
   return createToken({ user_id: user.user_id, email: user.email }, expiresIn);
 };
 
+// Generate a refresh token for the user. A model method.
 userSchema.methods["genRefreshToken"] = function () {
   const user = this as UserDocument;
   const expiresIn = "7d";
