@@ -1,6 +1,6 @@
 import { asyncHandler } from "@middlewares/async.middleware";
 import ImageModel from "@models/image.model";
-import { deleteFile, getImagePath } from "@utils/file.util";
+import { deleteFile, getImagePath, uploadFolder } from "@utils/file.util";
 import { _response } from "@utils/response.util";
 import { Request, Response } from "express";
 import fs from "fs";
@@ -9,6 +9,8 @@ import { createWorker } from "tesseract.js";
 export const extractContent = asyncHandler(
   async (req: Request, res: Response) => {
     const { fileName, session: user } = req;
+
+    console.log("Files in uploads folder:", fs.readdirSync(uploadFolder));
 
     if (!fileName) {
       return _response(res, "File not found", false, 404, {});
