@@ -1,27 +1,27 @@
+import path from "path";
+import cors from "cors";
 import express from "express";
+import router from "@routes/index";
 import { configDotenv } from "dotenv";
 import { connectToDB } from "@services/db.service";
-import router from "@routes/index";
-import path from "path";
 import { errorMiddleware } from "@middlewares/error.middleware";
-import cors from "cors";
 
 configDotenv();
 
 const app = express();
 
-app.use(express.json());
 app.use(cors({ origin: "*" }));
+app.use(express.json());
 
-// const buildFolder = path.join("client", "dist");
-const buildFolder = path.join(__dirname, "..", "..", "client", "dist");
-// console.log(path.join(__dirname, "..", "..", "client", "dist"));
-console.log("BUILD FOLDER", buildFolder);
+const buildFolder = path.join("client", "dist");
+
+console.log("Build Folder", buildFolder);
+
 app.use(express.static(buildFolder));
 
 app.use((req, res, next) => {
   console.log(`Request: ${req.method} ${req.url}`);
-  console.log(`Time: ${new Date()}`);
+  console.log(`Time: ${new Date().toLocaleTimeString()}`);
   next();
 });
 
