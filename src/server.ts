@@ -45,7 +45,7 @@ app.use(
   express.static(buildFolder, {
     setHeaders: (res, filePath) => {
       const ext = path.extname(filePath);
-      const mimeType = mimeTypes[ext] || "application/octet-stream";
+      const mimeType = mimeTypes[ext];
       console.log("mimeType", mimeType);
       res.setHeader("Content-Type", mimeType);
     },
@@ -57,9 +57,23 @@ app.use("/api/v1/", router);
 
 // Fallback route to serve index.html for any non-API routes
 app.get("*", (req, res) => {
-  const indexFile = path.resolve(buildFolder, "index.html");
-  console.log(`indexFile`, indexFile);
-  res.sendFile(indexFile);
+  // const indexFile = path.resolve(buildFolder, "index.html");
+  // console.log(`indexFile`, indexFile);
+  // const ext = path.extname(indexFile);
+  // const mimeType = mimeTypes[ext];
+  // res.setHeader("Content-Type", mimeType);
+  // console.log("Sending index file", indexFile, mimeType);
+  // res.sendFile(indexFile);
+  if (
+    !req.originalUrl.startsWith("/api/") &&
+    !req.originalUrl.startsWith("/assets/")
+  ) {
+    const indexFile = path.resolve(buildFolder, "index.html");
+    console.log(`indexFile`, indexFile);
+    res.sendFile(indexFile);
+  } else {
+    res.status(404).send("Not Found");
+  }
 });
 
 // Error handling middleware
