@@ -8,6 +8,21 @@ import { errorMiddleware } from "@middlewares/error.middleware";
 
 configDotenv();
 
+// Define MIME types for different file extensions
+const mimeTypes: any = {
+  ".html": "text/html",
+  ".css": "text/css",
+  ".js": "application/javascript",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".svg": "image/svg+xml",
+  ".ico": "image/x-icon",
+  ".txt": "text/plain",
+  ".json": "application/json",
+  ".wasm": "application/wasm",
+};
+
 const app = express();
 
 app.use(express.json());
@@ -27,12 +42,25 @@ console.log("buildFolder", buildFolder);
 // Registering Index router
 app.use("/api/v1/", router);
 
+// Serve static files from the /assets directory
+app.use(
+  "/assets",
+  express.static(path.resolve(buildFolder, "assets"), {
+    setHeaders: (res, filePath) => {
+      const ext = path.extname(filePath);
+      const contentType = mimeTypes[ext];
+      if (contentType) {
+        console.log(`Serving ${filePath} as ${contentType}`);
+        res.setHeader("Content-Type", contentType);
+      }
+    },
+  })
+);
+
 app.get("/", function (req, res) {
   console.log(`Serving index.html`);
   res.sendFile(path.resolve(buildFolder, "index.html"));
 });
-
-app.use("*", express.static(buildFolder));
 
 // Error handling middleware
 app.use(errorMiddleware);
