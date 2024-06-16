@@ -12,7 +12,8 @@ const app = express();
 
 const mimeTypes: Record<string, string> = {
   ".css": "text/css",
-  ".js": "application/javascript",
+  ".js":
+    "application/javascript, application/x-javascript, text/javascript, text/html",
   ".html": "text/html",
   ".png": "image/png",
   ".jpeg": "image/jpeg",
