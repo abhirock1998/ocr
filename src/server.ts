@@ -36,46 +36,30 @@ app.use((req, res, next) => {
   next();
 });
 
-const buildFolder = path.join("client", "dist");
+// app.use((req, res, next) => {
+//   if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
+//     next();
+//   } else {
+//     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+//     res.header("Expires", "-1");
+//     res.header("Pragma", "no-cache");
+//     res.sendFile(path.join(__dirname, "..", "client", "dist", "index.html"));
+//   }
+// });
+
+const buildFolder = path.join(__dirname, "..", "..", "client", "dist");
 
 console.log("Build Folder", buildFolder);
 
 // Serve static files with correct MIME types
-app.use(
-  express.static(buildFolder, {
-    setHeaders: (res, filePath) => {
-      const ext = path.extname(filePath);
-      const mimeType = mimeTypes[ext];
-      console.log("mimeType", mimeType);
-      res.setHeader("Content-Type", mimeType);
-    },
-  })
-);
+app.use(express.static(buildFolder));
 
 // Registering Index router
 app.use("/api/v1/", router);
 
-// Fallback route to serve index.html for any non-API routes
+// // Fallback route to serve index.html for any non-API routes
 app.get("*", (req, res) => {
-  // const indexFile = path.resolve(buildFolder, "index.html");
-  // console.log(`indexFile`, indexFile);
-  // const ext = path.extname(indexFile);
-  // const mimeType = mimeTypes[ext];
-  // res.setHeader("Content-Type", mimeType);
-  // console.log("Sending index file", indexFile, mimeType);
-  // res.sendFile(indexFile);
-  if (
-    !req.originalUrl.startsWith("/api/") &&
-    !req.originalUrl.startsWith("/assets/")
-  ) {
-    const indexFile = path.resolve(buildFolder, "index.html");
-    console.log(`indexFile`, indexFile);
-    res.status(200).sendFile(indexFile);
-  } else {
-    const assetFile = path.resolve(buildFolder, req.url.replace("/", ""));
-    console.log("Asset File", assetFile);
-    res.status(200).sendFile(assetFile);
-  }
+  res.sendFile(path.resolve(buildFolder, "index.html"));
 });
 
 // Error handling middleware
