@@ -10,22 +10,6 @@ configDotenv();
 
 const app = express();
 
-const mimeTypes: Record<string, string> = {
-  ".css": "text/css",
-  ".js":
-    "application/javascript, application/x-javascript, text/javascript, text/html",
-  ".html": "text/html",
-  ".png": "image/png",
-  ".jpeg": "image/jpeg",
-  ".jpg": "image/jpeg",
-  ".svg": "image/svg+xml",
-  ".ico": "image/x-icon",
-  ".map": "application/json",
-  ".json": "application/json",
-  ".wasm": "application/wasm",
-  ".txt": "text/plain",
-};
-
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
@@ -36,28 +20,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use((req, res, next) => {
-//   if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
-//     next();
-//   } else {
-//     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
-//     res.header("Expires", "-1");
-//     res.header("Pragma", "no-cache");
-//     res.sendFile(path.join(__dirname, "..", "client", "dist", "index.html"));
-//   }
-// });
-
 const buildFolder = path.join(__dirname, "..", "..", "client", "dist");
 
-console.log("Build Folder", buildFolder);
-
-// Serve static files with correct MIME types
+console.log("buildFolder", buildFolder);
 app.use(express.static(buildFolder));
 
 // Registering Index router
 app.use("/api/v1/", router);
 
-// // Fallback route to serve index.html for any non-API routes
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(buildFolder, "index.html"));
 });
