@@ -1,6 +1,6 @@
 import { asyncHandler } from "@middlewares/async.middleware";
 import ImageModel from "@models/image.model";
-import { deleteFile, getImagePath, uploadFolder } from "@utils/file.util";
+import { deleteFile, getImagePath } from "@utils/file.util";
 import { _response } from "@utils/response.util";
 import { Request, Response } from "express";
 import fs from "fs";
@@ -10,14 +10,11 @@ export const extractContent = asyncHandler(
   async (req: Request, res: Response) => {
     const { fileName, session: user } = req;
 
-    console.log("Files in uploads folder:", fs.readdirSync(uploadFolder));
-
     if (!fileName) {
       return _response(res, "File not found", false, 404, {});
     }
 
     const filepath = getImagePath(fileName);
-    console.log("File to be processed:", filepath);
     const extension = fileName.split(".").pop();
     const worker = await createWorker();
 
@@ -59,8 +56,8 @@ export const extractContent = asyncHandler(
       }
     }
 
-    console.log("parseLines", parseLines);
-    console.log("Bold Words", boldWords);
+    // console.log("parseLines", parseLines);
+    // console.log("Bold Words", boldWords);
 
     const boldText = boldWords.map((word) => word.text).join(" ");
 
