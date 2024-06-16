@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 
 const buildFolder = path.join("client", "dist");
+console.log("BUILD FOLDER", buildFolder);
 app.use(express.static(buildFolder));
 
 app.use((req, res, next) => {
@@ -33,7 +34,7 @@ app.get("*", (req, res) => {
 // Error handling middleware
 app.use(errorMiddleware);
 
-const PORT = process.env["PORT"] || 8043;
+const PORT = process.env["PORT"] || 3000;
 app.listen(PORT, async () => {
   await connectToDB();
   console.log(`Server is running on port ${PORT}`);
