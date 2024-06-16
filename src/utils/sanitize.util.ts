@@ -1,10 +1,9 @@
 export const sanitizeUser = (user: any) => {
-  const removeFields = ["password", "refresh_token"];
   console.log("Before Delete", user);
-  delete user?.password;
+  const { password, ...props } = user;
   // removeFields.forEach((field) => {
   //   delete userObj[field];
   // });
-  console.log("After Delete", user);
-  return user;
+  console.log("After Delete", user, password, props);
+  return props;
 };
