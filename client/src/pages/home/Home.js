@@ -1,11 +1,11 @@
 import React from "react";
 import UploadImage from "../../components/home/Upload";
 import PreviewImage from "../../components/home/PreviewImage";
-import PreviewText from "../../components/home/PreviewText";
 import Navbar from "../../components/shared/Navbar";
 import Button from "../../components/shared/Button";
 import { useApiHook } from "../../hooks/useAuth";
 import { useAppStore } from "../../context/AuthProvider";
+import PreviewText from "../../components/home/PreviewText";
 
 const Home = () => {
   const [file, setFile] = React.useState(null);

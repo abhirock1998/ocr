@@ -79,7 +79,7 @@ export const useApiHook = () => {
       const message = error?.response?.data?.message || error?.message;
       const errorData = rootError?.error;
       if (Array.isArray(errorData)) {
-        errorData.map((err) => {
+        errorData.forEach((err) => {
           const path = err?.path?.toString();
           if (path) {
             toast().error(`Error ${path} ${err.message}`);

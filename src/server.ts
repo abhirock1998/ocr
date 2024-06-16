@@ -35,7 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const buildFolder = path.join(__dirname, "..", "..", "public");
+const buildFolder = path.join(__dirname, "..", "..", "client", "build");
 
 console.log("buildFolder", buildFolder);
 
