@@ -13,12 +13,12 @@ const PreviewText = ({ responseData }) => {
             80%), Low (below 50%)
           </p>
           <p>Bold text will be displayed in the following format:</p>
-          <p className="mb-6">
+          <p className="">
             <strong>Bold Text:</strong> [bold text]
           </p>
-          <p className="text-sm">
-            Note: Bold text will only appear if OCR detects bold characters or
-            words.
+          <p className="text-[10px] mb-6">
+            <i>Note</i>: Bold text will only appear if OCR detects bold
+            characters or words.
           </p>
           {lines.map((line, index) => {
             const boldWords = line.words.filter((word) => word.isBold);
