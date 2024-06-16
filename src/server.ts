@@ -43,23 +43,10 @@ console.log("buildFolder", buildFolder);
 app.use("/api/v1/", router);
 
 // Serve static files from the /assets directory
-app.use(
-  "/assets",
-  express.static(path.resolve(buildFolder, "assets"), {
-    setHeaders: (res, filePath) => {
-      const ext = path.extname(filePath);
-      const contentType = mimeTypes[ext];
-      if (contentType) {
-        console.log(`Serving ${filePath} as ${contentType}`);
-        res.setHeader("Content-Type", contentType);
-      }
-    },
-  })
-);
 
-app.get("/", function (req, res) {
+app.get("*", function (req, res) {
   console.log(`Serving index.html`);
-  res.sendFile(path.resolve(buildFolder, "index.html"));
+  res.sendFile(path.resolve(buildFolder, "index-TCjvaZu9.js"));
 });
 
 // Error handling middleware
